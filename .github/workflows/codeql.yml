@@ -72,3 +72,41 @@ jobs:
       uses: github/codeql-action/analyze@v2
       with:
         category: "/language:${{matrix.language}}"
+
+- name: branch-deploy
+  uses: github/branch-deploy@v3.0.3
+  with:
+    # The GitHub token used to create an authenticated client - Provided for you by default!
+    github_token: # default is ${{ github.token }}
+    # The status of the GitHub Actions - For use in the post run workflow - Provided for you by default!
+    status: # default is ${{ job.status }}
+    # The name of the default environment to deploy to. Example, "production"
+    environment: # optional, default is production
+    # Optional target environments to select for use with deployments. Example, "production,development,staging"
+    environment_targets: # optional, default is production,development,staging
+    # If set, the specified emoji "reaction" is put on the comment to indicate that the trigger was detected. For example, "rocket" or "eyes"
+    reaction: # optional, default is eyes
+    # The string to look for in comments as an IssueOps trigger. Example: ".deploy"
+    trigger: # optional, default is .deploy
+    # The string to look for in comments as an IssueOps noop trigger. Example: "noop"
+    noop_trigger: # optional, default is noop
+    # The string to look for in comments as an IssueOps lock trigger. Used for locking branch deployments on a specific branch. Example: "lock"
+    lock_trigger: # optional, default is .lock
+    # The string to look for in comments as an IssueOps unlock trigger. Used for unlocking branch deployments. Example: "unlock"
+    unlock_trigger: # optional, default is .unlock
+    # An alias or shortcut to get details about the current lock (if it exists) Example: ".info"
+    lock_info_alias: # optional, default is .wcid
+    # The name of a stable branch to deploy to (rollbacks). Example: "main"
+    stable_branch: # optional, default is main
+    # If "false", the trigger can match anywhere in the comment
+    prefix_only: # optional, default is true
+    # Determine how you want this Action to handle "out-of-date" branches. Available options: "disabled", "warn", "force". "disabled" means that the Action will not care if a branch is out-of-date. "warn" means that the Action will warn the user that a branch is out-of-date and exit without deploying. "force" means that the Action will force update the branch. Note: The "force" option is not recommended due to Actions not being able to re-run CI on commits originating from Actions itself
+    update_branch: # optional, default is warn
+    # Manually enforce commit status checks before a deployment can continue. Only use this option if you wish to manually override the settings you have configured for your branch protection settings for your GitHub repository. Default is "false - Example value: "context1,context2,context3" - In most cases you will not need to touch this option
+    required_contexts: # optional, default is false
+    # Allow branch deployments to run on repository forks. If you want to harden your workflows, this option can be set to false. Default is "true"
+    allow_forks: # optional, default is true
+    # A comma seperated list of GitHub usernames or teams that should be considered admins by this Action. Admins can deploy pull requests without the need for branch protection approvals. Example: "monalisa,octocat,my-org/my-team"
+    admins: # optional, default is false
+    # A GitHub personal access token with "read:org" scopes. This is only needed if you are using the "admins" option with a GitHub org team. For example: "my-org/my-team"
+    admins_pat: # optional, default is false
